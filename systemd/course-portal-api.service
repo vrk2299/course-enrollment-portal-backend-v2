@@ -1,0 +1,17 @@
+[Unit]
+Description=Course Enrollment Portal API
+After=network.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/course-portal-api
+Environment=DATA_DIR=/var/lib/course-portal
+EnvironmentFile=/etc/course-portal-api.env
+ExecStart=/opt/course-portal-api/.venv/bin/gunicorn --workers 2 --bind 0.0.0.0:8000 main:app
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target
